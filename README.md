@@ -1,5 +1,5 @@
 # Projektne faze
-- [ ] - Opis projekta
+- [x] - Opis projekta
 - [ ] - Početna struktura aplikacije
 - [ ] - Prototip
 - [ ] - Konzultacije
@@ -8,7 +8,7 @@
 
 # Opis projekta
 ## Kratki opis
-Ovdje ide opis projekta
+Moja aplikacije će pratiti evidenciju računa. Korisnik će moći vidjeti svoje račune, sve prihode i rashode, te moći će unijeti novi račun. Ukoliko korisnik pritisne na račun moći će vidjeti sve detalje( gdje je potrošio, koliko i kada ). Korisnik će imati mogućnost brisanja računa, te mogućnost filtracije po vrsti računa i nazivu. 
 
 ## Popis funkcionalnosti
 1. a
