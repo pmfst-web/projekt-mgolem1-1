@@ -1,44 +1,82 @@
 import React, { useEffect, useMemo, useRef } from 'react';
-import {
-  KeyboardAvoidingView,
-  Input,
-  Text,
-  View,
-  TextInput,
-  StyleSheet,
-  Button,
-  Platform,
-} from 'react-native';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { theme } from '../constants/theme';
+import { View, StyleSheet, TextInput, Button,Text } from 'react-native';
+import CurrencyInput from 'react-native-currency-input';
+import uuid from 'react-native-uuid';
+import CurrencyTextField from '@unicef/material-ui-currency-textfield';
+import { useSelector, useDispatch } from 'react-redux';
+import { addBill } from '../store/reducers/racunSLice';
 
+import RadioButton from '../components/RadioButton';
 
+const PROP = [
+  {
+    key: 'rashod',
+    text: 'Rashod',
+  },
+  {
+    key: 'prihod',
+    text: 'Prihod',
+  },
+];
 
-const NewBillPage = () => {
-
+const NewBillPage = ({ navigation }) => {
+  
   const [amount, setAmount] = React.useState('');
   const [date, setDate] = React.useState(new Date());
   const [type, setType] = React.useState('');
-  const [category, setCategory] = React.useState('Namirnice');
+  const [category, setCategory] = React.useState('');
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      //Your refresh code gets here
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, [navigation]);
 
   
-
+  const handleSubmit = () => {
+    console.log('aa');
+    dispatch(
+      addBill({
+        id: uuid.v4(),
+        date: new Date(),
+        type,
+        category,
+        amount,
+      })
+    );
+  };
   return (
     <View style={stil.ekran}>
-                    <View>
-                        <TextInput
-                            placeholder="Opis"
-                            value={amount}
-                            onChangeText={setAmount} />
-                        <TextInput
-                            placeholder="Iznos"
-                            value={date}
-                            onChangeText={setDate} />
-                       
-                    </View>
-                </View>)
+    <Text style={stil.textStyle}>
+    Kategorija
+    </Text>
+      <TextInput
+        style={stil.input}
+        placeholder="Kategorija"
+        onChangeText={(newText) => setCategory(newText)}
+        defaultValue={category}
+      />
+      <View>
+        <RadioButton PROP={PROP} setChecked={setType} checked={type} />
+      </View>
+      <CurrencyTextField
+      style= {stil.input}
+        label="Amount"
+        value={amount}
+        currencySymbol="€"
+        minimumValue="0"
+        outputFormat="number"
+        decimalCharacter="."
+        digitGroupSeparator=","
+        onChange={(event, value) => setAmount(value)}
+      />
+      <Button onPress={() => handleSubmit()} title="Novi račun" />
+    </View>
+  );
 };
 
 const stil = StyleSheet.create({
@@ -47,12 +85,18 @@ const stil = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  popisElement: {
-    backgroundColor: '#B591FF',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+  textStyle: {
+    fontSize:14,
+    color:'#000',
+    alignItems:'right'
+  },
+  input: {
+    fontSize:16,
+    width: '65%',
+    borderBottomWidth: 1,
+    padding: 10,
+    margin:10
   },
 });
 
-export default NewBillPage
+export default NewBillPage;

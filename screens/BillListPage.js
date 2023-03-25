@@ -1,60 +1,45 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  FlatList,
-  TouchableOpacity,
+  TouchableOpacity,Icon
 } from 'react-native';
 
-import { useSelector, useDispatch } from 'react-redux';
-import {getRacunSelector,deleteBill} from '../store/reducers/racunSLice'
-import {useAppDispatch} from '../store/reducers/racuni'
+ const BillListPage = (props) => {
 
-const BillListPage = ({ navigation }) => {
-  const racun=useSelector(getRacunSelector);
-
-    const dispatch=useAppDispatch();
-
-   const removeFromListHandler=(id)=>{
-     console.log(id);
-      dispatch(deleteBill(id));
-      console.log(racun)
-    }
-    
-  const prikazElelementa = (podaci) => {
-    return (
-       <TouchableOpacity onPress={()=>removeFromListHandler(podaci.item.id)}>
-        <View style={stil.popisElement}>
-          <Text>{podaci.item.type}</Text>
-        </View>
-        </TouchableOpacity>
-    );
+   console.log(props.podaci,'aa')
+   const removeFromListHandler = (id) => {
+     props.removeFromListHandler(id);
   };
-  return (
-    <View style={stil.ekran}>
-      <Text>Popis računa</Text>
-      <FlatList
-        keyExtractor={(item, index) => item.id}
-        data={racun}
-        renderItem={prikazElelementa}
-      />
-    </View>
-  );
-};
 
-const stil = StyleSheet.create({
-  ekran: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  popisElement: {
-    backgroundColor: '#B591FF',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
+console.log(props.podaci.category)
+      return (
+         <View style={styles.listItem}>
+      <View style={{alignItems:"right",justifyContent:'center', flex:1}}>
+        <Text style={{fontWeight:"bold"}}>{props.podaci.category}</Text>
+      </View>
+      <TouchableOpacity style={{height:50,width:50, justifyContent:"center",alignItems:"center"}}>
+      {props.podaci.type.toUpperCase()==='PRIHOD'?<Text style={{color:"green"}}>{props.podaci.amount}€</Text>:
+      <Text style={{color:"red"}}>-{props.podaci.amount}€</Text>}
+        
+      </TouchableOpacity>
+    </View>
+   )
+  };
+
+
+const styles = StyleSheet.create({
+  listItem:{
+    margin:10,
+    padding:10,
+    backgroundColor:"#FFF",
+    width:"80%",
+    flex:1,
+    alignSelf:"center",
+    flexDirection:"row",
+    borderRadius:5
+  }
 });
 
 export default BillListPage;

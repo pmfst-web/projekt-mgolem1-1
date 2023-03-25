@@ -1,64 +1,41 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export const BillList: Racun[] = [
-  {
-    id: 1,
-    date: new Date(),
-    type: 'Rashod',
-    category: 'Namirnice',
-    amount: 200,
-  },
-  {
-    id: 2,
-    date: new Date(),
-    type: 'Rashod',
-    category: 'Namirnice',
-    amount: 200,
-  },
-  {
-    id: 4,
-    date: new Date(),
-    type: 'Rashod',
-    category: 'Namirnice',
-    amount: 200,
-  },
-  {
-    id: 5,
-    date: new Date(),
-    type: 'Rashod',
-    category: 'Namirnice',
-    amount: 200,
-  },
-];
+import { createSlice } from '@reduxjs/toolkit';
+import { BillList } from '../../data/BillList';
+const initialState = {
+  racun: BillList,
+  filterRacun: [],
+};
 
 const racunSlice = createSlice({
   name: 'racun',
-  initialState: BillList,
+  initialState,
   reducers: {
-    totalAmount: (state) => {
-      return (state) =>
-        state.reduce((totals, current) => {
-          return totals + current.amount;
-        }, 0);
-    },
     addBill: (state, action) => {
-      const existingID = state.find((item) => item.id === action.payload.id);
+      console.log(state);
+      console.log(action.payload);
+      const existingID = state.racun.find(
+        (item) => item.id === action.payload.id
+      );
 
       if (existingID) {
         console.log('error');
       } else {
-        return [action.payload, ...state];
+        return { 
+          ...state,
+          racun: state.racun.concat(action.payload),
+        };
       }
     },
     deleteBill: (state, action) => {
-      console.log('aa')
-      return (state = state.filter((racun) => racun.id !== action.payload));
+      const deleteBill = state.racun.filter(
+        (racun) => racun.id !== action.payload
+      );
+      return { ...state, racun: deleteBill };
     },
     updateRacun: (state, action) => {
       const {
         payload: { id, date, type, category, amount },
       } = action;
-      return (state = state.map((racun) =>
+      return (state.racun = state.racun.map((racun) =>
         racun.id === id
           ? {
               ...racun,
@@ -71,14 +48,23 @@ const racunSlice = createSlice({
           : racun
       ));
     },
+
     filterTypeBill: (state, action) => {
-      return (state = state.filter((racun) => racun.type !== action.payload));
+      if (action.payload.toUpperCase() == 'ALL') { 
+        return { ...state, filterRacun: state.racun };
+      }
+      const filterRacun = state.racun.filter(
+        (r) => r.type.toUpperCase() === action.payload.toUpperCase()
+      );
+      console.log(filterRacun);
+      return { ...state, filterRacun };
     },
   },
 });
 
-export const getRacunSelector = (state) => state.racun;
-export const { addRacun, deleteBill, updateRacun, totalAmount} =
+export const getRacunSelector = (state) => state.racun.racun;
+export const getFilterRacunSelector = (state) => state.racun.filterRacun;
+export const { addBill, deleteBill, updateRacun, totalAmount, filterTypeBill } =
   racunSlice.actions;
 
 export default racunSlice.reducer;

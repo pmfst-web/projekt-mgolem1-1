@@ -1,10 +1,11 @@
 {
   "expo": {
-    "name": "projekt-template",
-    "slug": "projekt-template",
+    "name": "github.com/pmfst-web/projekt-mgolem1-1",
+    "slug": "snack-9e396710-55c9-46eb-80db-866d913be8d3",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -27,6 +28,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "github.com/pmfst-web/projekt-mgolem1-1 @ Jan 25, 2023"
   }
 }

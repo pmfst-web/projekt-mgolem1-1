@@ -4,7 +4,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import ADI from '@expo/vector-icons/AntDesign';
 
 type TabBarIconProps = {
-  color: string;
+  color: '#6A665F';
   size: number;
   type: 'wallet' | 'home' | 'add' | 'settings';
 };

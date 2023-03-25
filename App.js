@@ -1,37 +1,20 @@
 import React, { useState } from 'react';
-import { View, Text, Button, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 import * as Font from 'expo-font';
 import { TabBarIcon } from './components/TabBarIcon';
 
 import { theme } from './constants/theme';
 import NewBillPage from './screens/NewBillPage'
-import DetailsPage from './screens/DetailsPage';
 
-import { createStore, combineReducers } from 'redux';
-import storeRacun from './store/reducers/racuni';
-import racunReduceri from './store/reducers/racunSLice';
+import store from './store/reducers/racuni';
 import { Provider } from 'react-redux';
 import HomePage from './screens/HomePage';
-import BillListPage from './screens/BillListPage'
+import TransactionPage from './screens/TransactionPage'
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
-
-const ucitajFontove = () => {
-  return Font.loadAsync({
-    //Baloo: require('./assets/Baloo.ttf')
-  });
-};
-
-// Spajanje svih reducera u jedan objekt
-const glavniReducer = combineReducers({
-  radovi: racunReduceri,
-});
-// Stvaramo centralni spremnik
-const store = storeRacun;
+const Tab = createBottomTabNavigator(
+);
 
 const tabEkrani = () => {
   return (
@@ -61,7 +44,7 @@ const tabEkrani = () => {
             tabBarIcon: (props) => <TabBarIcon {...props} type="wallet" />,
           }}
           name="Transakcije"
-          component={BillListPage}
+          component={TransactionPage}
         />
       </Tab.Navigator>
   );
@@ -78,6 +61,7 @@ function App() {
             name="HomePage"
             component={tabEkrani}
           />
+        
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

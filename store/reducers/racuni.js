@@ -1,20 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
-import racun from './racunSLice'
+import { configureStore } from '@reduxjs/toolkit';
+import racun from './racunSLice';
 
-const store=configureStore({
-    reducer:{
-        racun
-    },
-    middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    })
-})
-
-export type RootState=ReturnType<typeof store.getState>
-export type AppDispatch=typeof store.dispatch;
-export const useAppDispatch=()=>useDispatch();
-
+const store = configureStore({
+  reducer: {
+    racun,
+  },
+});
 
 export default store;

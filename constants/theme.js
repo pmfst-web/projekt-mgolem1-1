@@ -1,9 +1,9 @@
 export const theme = {
-  dark: true,
+  dark: false,
   colors: {
-    primary: '#0A84FF',
-    background: '#000000',
-    card: '#151515',
+    primary: '#F4C2C2',
+    background: '#F4C2C2',
+    card: '#DDA69C',
     text: '#FFFFFF',
     border: '#262629',
     notification: '#0A84FF',

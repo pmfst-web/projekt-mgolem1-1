@@ -1,30 +1,31 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import React, { useState,useEffect } from 'react';
 import {
   StyleSheet,
-  Input,
   Text,
-  View,
   StatusBar,
-  Keyboard,
   SafeAreaView,
 } from 'react-native';
 import Card from '../components/Card';
-import { theme } from '../constants/theme';
-import Boje from '../constants/Boje'
-import React, { useRef } from 'react';
-import DetailsPage from './DetailsPage';
-import NewBillPage from './NewBillPage';
-const Tab = createBottomTabNavigator();
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {getRacunSelector} from '../store/reducers/racunSLice'
 
 const HomePage = () => {
   const racun=useSelector(getRacunSelector);
-  let total=0;
-    racun.forEach(el=>{
-        total+=+el.amount;
+  const [total,setTotal]=useState(0);
+  useEffect(()=>{
+    let sum=0
+    if(racun!==undefined){
+    racun?.forEach(el=>{
+      console.log(sum)
+      console.log(racun)
+      if(el.type.toUpperCase()=="RASHOD") sum-=el.amount;
+      else{
+        sum+=el.amount;
+      }
     })
+    setTotal(sum)}
+  },[racun])
+  
   return (
       <>
       <StatusBar barStyle="dark-content" />
