@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   FlatList,
-  TouchableOpacity,
 } from 'react-native';
 import { Button } from 'react-native-paper';
 import BillListPage from './BillListPage';
@@ -18,17 +17,12 @@ import {
 } from '../store/reducers/racunSLice';
 
 const TransactionPage = ({ navigation }) => {
-  const [refreshFlatlist, setRefreshFlatList] = useState(false);
   const [active, setActive] = useState(1);
   const racun = useSelector(getFilterRacunSelector);
-  const racun2 = useSelector(getRacunSelector);
   const dispatch = useDispatch();
-  console.log(racun, 'bb');
-
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       dispatch(filterTypeBill('All'));
-      console.log('kurac', racun);
       setActive(1);
     });
     return () => {
@@ -44,11 +38,15 @@ const TransactionPage = ({ navigation }) => {
     [dispatch, setActive]
   );
 
-  const removeFromListHandler = (id) => {
-    console.log(id);
+ const removeFromListHandler = (id) => {
     dispatch(deleteBill(id));
-    navigation.navigate('Transakcije');
+    navigation.navigate('Home');
   };
+
+  const onDetails = (id) => {
+    navigation.navigate('DetailsPage', { id });
+  };
+
   return (
     <View style={styles.ekran}>
       <View style={styles.buttonsFilter}>
@@ -56,27 +54,27 @@ const TransactionPage = ({ navigation }) => {
           <Button onPress={() => filterType('All', 1)}>Svi</Button>
         </View>
         <View style={active == 2 ? styles.activeButton : null}>
-          <Button onPress={() => filterType('Rashod', 2)}>Rashod</Button>
+          <Button onPress={() => filterType('ISPLATA', 2)}>Isplata</Button>
         </View>
         <View style={active == 3 ? styles.activeButton : null}>
-          <Button onPress={() => filterType('Prihod', 3)}>Prihod</Button>
+          <Button onPress={() => filterType('UPLATA', 3)}>Uplata</Button>
         </View>
       </View>
       <Text>Popis računa</Text>
       <View style={styles.container}>
         <FlatList
-          style={{flex:1}}
+          style={{ flex: 1 }}
           data={racun}
-          renderItem={({ item }) => <BillListPage
-                  podaci={item}
-                  removeFromListHandler={removeFromListHandler}
-                  index={1}
-                />
-              }
-          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <BillListPage
+              podaci={item}
+              removeFromListHandler={removeFromListHandler}
+              handleDetails={onDetails}
+            />
+          )}
+          keyExtractor={(item) => item.id}
         />
       </View>
-              
     </View>
   );
 };
@@ -85,18 +83,21 @@ const styles = StyleSheet.create({
   ekran: {
     flex: 1,
   },
-   container: {
+  container: {
     flex: 1,
     backgroundColor: '#F7F7F7',
-    marginTop:20
+    marginTop: 20,
   },
   buttonsFilter: {
     height: '10%',
     flexDirection: 'row',
-    backgroundColor: 'beige',
     borderWidth: 1,
     margin: 10,
+    padding: 10,
+    backgroundColor: '#FFF',
     width: '80%',
+    alignSelf: 'center',
+    borderRadius: 5,
     justifyContent: 'space-between',
   },
   activeButton: {

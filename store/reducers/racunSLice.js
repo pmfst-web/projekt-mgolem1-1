@@ -19,7 +19,7 @@ const racunSlice = createSlice({
       if (existingID) {
         console.log('error');
       } else {
-        return { 
+        return {
           ...state,
           racun: state.racun.concat(action.payload),
         };
@@ -29,7 +29,7 @@ const racunSlice = createSlice({
       const deleteBill = state.racun.filter(
         (racun) => racun.id !== action.payload
       );
-      return { ...state, racun: deleteBill };
+      return { ...state, racun: deleteBill, filterTypeBill: deleteBill };
     },
     updateRacun: (state, action) => {
       const {
@@ -50,7 +50,7 @@ const racunSlice = createSlice({
     },
 
     filterTypeBill: (state, action) => {
-      if (action.payload.toUpperCase() == 'ALL') { 
+      if (action.payload.toUpperCase() == 'ALL') {
         return { ...state, filterRacun: state.racun };
       }
       const filterRacun = state.racun.filter(
