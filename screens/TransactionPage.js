@@ -1,24 +1,17 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-} from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { Button } from 'react-native-paper';
 import BillListPage from './BillListPage';
 
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  getRacunSelector,
-  getFilterRacunSelector,
   deleteBill,
   filterTypeBill,
 } from '../store/reducers/racunSLice';
 
 const TransactionPage = ({ navigation }) => {
   const [active, setActive] = useState(1);
-  const racun = useSelector(getFilterRacunSelector);
+  const racun = useSelector(state=>state.racun.filterRacun);
   const dispatch = useDispatch();
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -38,13 +31,13 @@ const TransactionPage = ({ navigation }) => {
     [dispatch, setActive]
   );
 
- const removeFromListHandler = (id) => {
+  const removeFromListHandler = (id) => {
     dispatch(deleteBill(id));
-    navigation.navigate('Home');
+    navigation.navigate('Transakcije');
   };
 
-  const onDetails = (id) => {
-    navigation.navigate('DetailsPage', { id });
+  const onDetails = (pod) => {
+    navigation.navigate('DetailsPage', { id: pod });
   };
 
   return (
@@ -60,7 +53,6 @@ const TransactionPage = ({ navigation }) => {
           <Button onPress={() => filterType('UPLATA', 3)}>Uplata</Button>
         </View>
       </View>
-      <Text>Popis računa</Text>
       <View style={styles.container}>
         <FlatList
           style={{ flex: 1 }}

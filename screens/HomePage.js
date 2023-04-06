@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, StatusBar, SafeAreaView } from 'react-native';
 import Card from '../components/Card';
 import { useSelector } from 'react-redux';
-import { getRacunSelector } from '../store/reducers/racunSLice';
 
 const HomePage = () => {
-  const racun = useSelector(getRacunSelector);
-  console.log(racun);
+  const racun = useSelector((state) => state.racun.racun);
+
   const [total, setTotal] = useState(0);
   useEffect(() => {
     let sum = 0;

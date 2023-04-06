@@ -3,8 +3,8 @@ import racun from './racunSLice';
 
 const store = configureStore({
   reducer: {
-    racun,
-  },
+    racun
+  }
 });
 
 export default store;

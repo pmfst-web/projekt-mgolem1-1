@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabBarIcon } from './components/TabBarIcon';
-import { View, Text, Button, TouchableOpacity } from 'react-native';
-import MCI from '@expo/vector-icons/MaterialCommunityIcons';
 import { theme } from './constants/theme';
 import NewBillPage from './screens/NewBillPage';
-
 import store from './store/reducers/racuni';
 import { Provider } from 'react-redux';
 import HomePage from './screens/HomePage';
 import DetailesPage from './screens/DetailsPage';
 import TransactionPage from './screens/TransactionPage';
+import SuccessPage from './screens/SuccessPage';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -59,10 +57,11 @@ function App() {
             name="HomePage"
             component={tabEkrani}
           />
+          <Stack.Screen name="DetailsPage" component={DetailesPage} />
+
           <Stack.Screen
-            name="DetailsPage"
-            component={DetailesPage}
-            
+            name="Success"
+            component={SuccessPage}
           />
         </Stack.Navigator>
       </NavigationContainer>

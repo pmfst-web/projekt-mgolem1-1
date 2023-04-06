@@ -64,3 +64,13 @@ Uredila sam malo aplikaciju.
 ### Kratki opis promjena
 
 Dodala sam uređivanje i brisanje.
+
+## 05.04.2023.
+
+| Pocetak | Kraj  |
+| ------- | ----- |
+| 15:00   | 17:00 |
+
+### Kratki opis promjena
+
+Dodala sam ekran za usjesno dodavanje novog računa. Te sam završila s projektom.

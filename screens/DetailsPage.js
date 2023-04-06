@@ -1,33 +1,32 @@
-import { useState, useRef, useLayoutEffect } from 'react';
-import { View, Text, StyleSheet,TouchableOpacity } from 'react-native';
-import {
-  getRacunSelector
-} from '../store/reducers/racunSLice';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { getRacunSelector, deleteBill } from '../store/reducers/racunSLice';
 import { useSelector, useDispatch } from 'react-redux';
 import MCI from '@expo/vector-icons/MaterialCommunityIcons';
 
-const DetailsPage=({ route, navigation })=>{
+const DetailsPage = ({ route, navigation }) => {
   const idBill = route.params.id;
   const sviRacun = useSelector(getRacunSelector);
   const racun = sviRacun.find((r) => r.id === idBill);
-  console.log('det',racun)
+  
+  const dispatch = useDispatch();
+  const removeFromListHandler = (id) => {
+    dispatch(deleteBill(id));
+    navigation.navigate('Transakcije');
+  };
 
   navigation.setOptions({
-      headerTitle: racun?.category,
-      headerRight: () => {
-        return (
-           <TouchableOpacity
-                      onPress={() => navigation.navigate('Novi račun',{id:racun.id})}>
-                      <View>
-                        <MCI
-                          name="pencil"
-                          size={26}
-                        />
-                      </View>
-                    </TouchableOpacity>
-        );
-      },
-    });
+    headerTitle: racun?.category,
+    headerRight: () => {
+      return (
+        <TouchableOpacity onPress={() => removeFromListHandler(racun.id)}>
+          <View>
+            <MCI name="delete" size={26} />
+          </View>
+        </TouchableOpacity>
+      );
+    },
+  });
   return (
     <View style={styles.container}>
       <View style={styles.tablica}>
@@ -60,9 +59,7 @@ const DetailsPage=({ route, navigation })=>{
             <Text>Iznos:</Text>
           </View>
           <View style={styles.stupac}>
-            <Text style={styles.bold}>
-              {racun.amount}
-            </Text>
+            <Text style={styles.bold}>{racun.amount}</Text>
           </View>
         </View>
       </View>

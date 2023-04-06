@@ -10,12 +10,9 @@ const racunSlice = createSlice({
   initialState,
   reducers: {
     addBill: (state, action) => {
-      console.log(state);
-      console.log(action.payload);
       const existingID = state.racun.find(
         (item) => item.id === action.payload.id
       );
-
       if (existingID) {
         console.log('error');
       } else {
@@ -31,23 +28,6 @@ const racunSlice = createSlice({
       );
       return { ...state, racun: deleteBill, filterTypeBill: deleteBill };
     },
-    updateRacun: (state, action) => {
-      const {
-        payload: { id, date, type, category, amount },
-      } = action;
-      return (state.racun = state.racun.map((racun) =>
-        racun.id === id
-          ? {
-              ...racun,
-              id,
-              date,
-              type,
-              category,
-              amount,
-            }
-          : racun
-      ));
-    },
 
     filterTypeBill: (state, action) => {
       if (action.payload.toUpperCase() == 'ALL') {
@@ -57,14 +37,13 @@ const racunSlice = createSlice({
         (r) => r.type.toUpperCase() === action.payload.toUpperCase()
       );
       console.log(filterRacun);
+
       return { ...state, filterRacun };
     },
   },
 });
 
-export const getRacunSelector = (state) => state.racun.racun;
-export const getFilterRacunSelector = (state) => state.racun.filterRacun;
-export const { addBill, deleteBill, updateRacun, totalAmount, filterTypeBill } =
+export const { addBill, deleteBill, totalAmount, filterTypeBill } =
   racunSlice.actions;
 
 export default racunSlice.reducer;

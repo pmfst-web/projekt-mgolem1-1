@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TextInput, Button, Text } from 'react-native';
 import uuid from 'react-native-uuid';
-import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 import { useSelector, useDispatch } from 'react-redux';
-import { addBill, updateRacun } from '../store/reducers/racunSLice';
+import { addBill } from '../store/reducers/racunSLice';
 import CurrencyInput from 'react-native-currency-input';
 
 import RadioButton from '../components/RadioButton';
@@ -20,62 +19,36 @@ const PROP = [
 ];
 
 const NewBillPage = ({ navigation, route }) => {
-
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      console.log(route.params?.id,'iiiii');
+      setAmount(0);
+      setType('');
+      setCategory('');
     });
     return () => {
       unsubscribe();
     };
   }, [navigation, route]);
-  
-  const id = route.params?.id;
-  console.log('route', route.params?.id);
-  console.log('id', id);
 
-  
+  const [amount, setAmount] = useState(0);
+  const [date, setDate] = useState(new Date());
+  const [type, setType] = useState('');
+  const [category, setCategory] = useState('');
 
-  const racun = useSelector((state) => {
-    console.log(id);
-    if (id) {
-      console.log(id, 'bebe');
-      return state.racun.racun.find((racun) => racun.id === id);
-    } else return null;
-  });
-
-  const [amount, setAmount] = React.useState(racun?.amount || 0);
-  const [date, setDate] = React.useState(racun?.date || new Date());
-  const [type, setType] = React.useState(racun?.type || '');
-  const [category, setCategory] = React.useState(racun?.category || '');
-  console.log(racun, 'aaaaa');
   const dispatch = useDispatch();
 
-  const handleEditBill = () => {
-    dispatch(updateRacun({ id, date, type, category, amount }));
-
-    navigation.navigate('HomePage');
-  };
-
   const handleSubmit = () => {
-    if (id) {
-      handleEditBill();
-    } else {
-      dispatch(
-        addBill({
-          id: uuid.v4(),
-          date: date,
-          type,
-          category,
-          amount,
-        })
-      );
-    }
-    navigation.navigate('HomePage');
-  };
+    dispatch(
+      addBill({
+        id: uuid.v4(),
+        date: date,
+        type,
+        category,
+        amount,
+      })
+    );
 
-  const handleAmountChange = (value) => {
-    setAmount(value);
+    navigation.navigate('Success');
   };
   return (
     <View style={stil.ekran}>

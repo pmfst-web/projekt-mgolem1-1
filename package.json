@@ -7,10 +7,10 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "expo": "~46.0.19",
+    "expo": "~46.0.21",
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
-    "react-native": "0.69.6",
+    "react-native": "0.69.9",
     "redux": "4.0.0",
     "expo-font": "~10.2.0",
     "prop-types": "15.7.2",
@@ -23,6 +23,7 @@
     "@reduxjs/toolkit": "*",
     "@types/react-dom": "18.0.0",
     "expo-application": "~4.2.2",
+    "react-navigation": "*",
     "use-force-update": "*",
     "@material-ui/core": "^4.3.0",
     "react-native-uuid": "*",
