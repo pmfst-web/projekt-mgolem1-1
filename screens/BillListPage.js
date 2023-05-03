@@ -15,7 +15,7 @@ const BillListPage = (props) => {
         }}
         onPress={() => props.handleDetails(props.podaci.id)}>
         {props.podaci.type.toUpperCase() === 'UPLATA' ? (
-          <Text style={{ color: 'green' }}>{props.podaci.amount}€</Text>
+          <Text style={{ color: 'green' }}>+{props.podaci.amount}€</Text>
         ) : (
           <Text style={{ color: 'red' }}>-{props.podaci.amount}€</Text>
         )}

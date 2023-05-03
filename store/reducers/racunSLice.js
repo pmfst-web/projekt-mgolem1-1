@@ -26,7 +26,7 @@ const racunSlice = createSlice({
       const deleteBill = state.racun.filter(
         (racun) => racun.id !== action.payload
       );
-      return { ...state, racun: deleteBill, filterTypeBill: deleteBill };
+      return { ...state, racun: deleteBill };
     },
 
     filterTypeBill: (state, action) => {
@@ -36,14 +36,13 @@ const racunSlice = createSlice({
       const filterRacun = state.racun.filter(
         (r) => r.type.toUpperCase() === action.payload.toUpperCase()
       );
-      console.log(filterRacun);
 
       return { ...state, filterRacun };
     },
   },
 });
 
-export const { addBill, deleteBill, totalAmount, filterTypeBill } =
+export const { addBill, deleteBill, filterTypeBill } =
   racunSlice.actions;
 
 export default racunSlice.reducer;

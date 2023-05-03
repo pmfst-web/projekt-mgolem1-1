@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { getRacunSelector, deleteBill } from '../store/reducers/racunSLice';
+import { deleteBill } from '../store/reducers/racunSLice';
 import { useSelector, useDispatch } from 'react-redux';
 import MCI from '@expo/vector-icons/MaterialCommunityIcons';
 
 const DetailsPage = ({ route, navigation }) => {
   const idBill = route.params.id;
-  const sviRacun = useSelector(getRacunSelector);
+  const sviRacun = useSelector(state=>state.racun.racun);
   const racun = sviRacun.find((r) => r.id === idBill);
   
   const dispatch = useDispatch();

@@ -25,7 +25,7 @@ const SuccessPage = ({ navigation }) => {
   return (
     <View style={{ alignItems: 'center' }}>
       <Text style={{ marginVertical: 30, fontSize: 20, textAlign: 'center' }}>
-        Čestitam. Uspješno dodan raćun!
+        Čestitam. Uspješno ste dodali račun!
       </Text>
       <View style={styles.slikaOkvir}>
         <Image style={styles.slika} source={require('../assets/success.png')} />
