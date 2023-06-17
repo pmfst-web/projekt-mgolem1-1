@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { BillList } from '../../data/BillList';
+import {CategoryList} from '../../data/CategoryList'
 const initialState = {
   racun: BillList,
+  category: CategoryList,
+  categoryByType:[],
   filterRacun: [],
 };
 
@@ -39,10 +42,27 @@ const racunSlice = createSlice({
 
       return { ...state, filterRacun };
     },
+    getCategory:(state,action)=>{
+    console.log(action.payload)
+    console.log(state.category)
+    const categoryByType = state.category.filter(
+        (c) => c.type.toUpperCase() === action.payload.toUpperCase()
+      );
+    return {...state,categoryByType}
   },
+  getStatisticsOfCategory:(state,action)=>{
+    let total=0;
+    state.racun.map((c)=>{
+      if(c.category===action.payload){
+        total+=c.amount;
+      }
+    })
+  }
+  },
+  
 });
 
-export const { addBill, deleteBill, filterTypeBill } =
+export const { addBill, deleteBill, filterTypeBill,getCategory } =
   racunSlice.actions;
 
 export default racunSlice.reducer;

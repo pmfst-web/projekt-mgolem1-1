@@ -19,6 +19,8 @@ export const TabBarIcon = ({ type, color, size }: TabBarIconProps) => {
       return <ADI name='plus' size={size} color={color} />;
     case 'settings':
       return <MCI name='cog' size={size} color={color} />;
+    case 'statistics':
+      return <MCI name='chart-bar' size={size} color={color} />;
     default:
       return null;
   }

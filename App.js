@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import HomePage from './screens/HomePage';
 import DetailesPage from './screens/DetailsPage';
 import TransactionPage from './screens/TransactionPage';
+import StatisticsPage from './screens/StatisticsPage'
 import SuccessPage from './screens/SuccessPage';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -42,6 +43,13 @@ const tabEkrani = () => {
         }}
         name="Transakcije"
         component={TransactionPage}
+      />
+      <Tab.Screen
+        options={{
+          tabBarIcon: (props) => <TabBarIcon {...props} type="statistics" />,
+        }}
+        name="Statistika"
+        component={StatisticsPage}
       />
     </Tab.Navigator>
   );

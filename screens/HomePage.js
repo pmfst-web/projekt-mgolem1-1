@@ -27,7 +27,7 @@ const HomePage = () => {
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={styles.container}>
         <Card style={styles.card}>
-          <Text style={styles.sectionTitle}>Stanje na računu: {total}kn</Text>
+          <Text style={styles.sectionTitle}>Stanje na računu: {total}€</Text>
         </Card>
       </SafeAreaView>
     </>
